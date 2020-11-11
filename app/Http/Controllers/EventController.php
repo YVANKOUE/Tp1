@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\CreateEventRequest;
 use Illuminate\Http\Request;
 use App\Models\Event;
 
@@ -34,13 +34,8 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateEventRequest $request)
     {
-        $this->validate($request,[
-            'titre' => 'required|min:3',
-            'description' => 'required|min:5',
-            'Echeance' => 'required'
-        ]);
        Event::create(['titre' =>  $request->titre, 'description' =>  $request->description, 'Echeance' => $request->Echeance]);
        return redirect(route('home'));
     }
@@ -76,19 +71,12 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateEventRequest $request, $id)
     {
-        {
-            $this->validate($request,[
-                'titre' => 'required|min:3',
-                'description' => 'required|min:5',
-                'Echeance' => 'required'
-            ]);
            
            $event = Event::findOrFail($id);
            $event->update(['titre' =>  $request->titre, 'description' =>  $request->description, 'Echeance' => $request->Echeance]);
            return redirect(route('events.show', $event) );
-        }
     }
 
     /**

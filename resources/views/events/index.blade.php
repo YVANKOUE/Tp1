@@ -3,7 +3,7 @@
 @section('content')
 
 <a href="{{route('events.create')}}">Creer un evenement</a>
-@if($events ->count() > 0)
+@if(!$events ->isEmpty())
 <ul>
 @foreach($events as $event)
 <li><a href="{{route('events.show' , $event)}}">{{$event->titre}}</a> creer le {{$event->Echeance}} </li>
